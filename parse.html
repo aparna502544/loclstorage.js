@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registaration form</h1>
+    <form>
+        <input type="text" id="text" placeholder="enter your name">
+        <input type="email" id="mail" placeholder="enter your email">
+        <input type="password" id="pass" placeholder="password">
+        <button id="savebtn">Save</button>
+        <button id="clrbtn">Clear</button>
+        <hr>
+
+        <h2>Registed Users</h2>
+        <div id="Users"></div>
+
+
+
+
+        <script>
+            let name=document.getElementById("text")
+            let mail=document.getElementById("mail")
+            let passwrd=document.getElementById("pass")
+            let savebtn=document.getElementById("savebtn")
+            let clearbtn=document.getElementById("clrbtn")
+            let div=document.getElementById("users")
+            arrUser=[];
+             savebtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                
+                let users=
+                {
+                    name:name.value,
+                     email:mail.value,
+                    password:passwrd.value
+                };
+                arrUser.push(users);
+
+
+                // alert("save button clicked")
+                // console.log(users);
+                localStorage.setItem("user",JSON.stringify(arrUser));
+                name.value="",
+                mail.value="",
+                passwrd.value="";
+            
+
+        });
+        // localStorage.getItem(JSON.parse(arrUser));
+        // savebtn.addEventListener("click",(e)=>{
+        //     e.preventDefault();
+             
+        //         let users=
+        //         {
+        //             name:name.value,
+        //              email:mail.value,
+        //             password:passwrd.value
+        //         };
+        //         arrUser.push(users);
+        // })
+        // div.innerHTML=""
+        // arrUser.forEach => {
+            
+        // });
+        </script>
+
+    </form>
+    
+</body>
+</html>
