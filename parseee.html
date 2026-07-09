@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h1>Registaration form</h1>
+    <form>
+        <input type="text" id="text" placeholder="enter your name">
+        <input type="email" id="mail" placeholder="enter your email">
+        <input type="password" id="pass" placeholder="password">
+        <button id="savebtn">Register</button>
+        <button id="clrbtn">Clear</button>
+        <hr>
+
+        <h2>Registed Users</h2>
+        <div id="users"></div>
+        <script>
+            let name=document.getElementById("text")
+            let mail=document.getElementById("mail")
+            let passwrd=document.getElementById("pass")
+            let savebtn=document.getElementById("savebtn")
+            let clrbtn=document.getElementById("clrbtn")
+            let div=document.getElementById("users")
+           
+            function displayUser(){
+                let userList =localStorage.getItem("user");
+                console.log(userList)
+                let users =JSON.parse(userList) || [];
+                div.innerHTML="",
+                users.forEach((item, index) => {    //foreachil index number kodutht und athkond remove cheyumboo splicil 
+                    // index numberm cardinoppm varum
+                    div.innerHTML += `
+                    <div style="border: 1px solid black;padding: 20px; margin:20px;">
+                        <h3>${item.name}</h3>
+                        <p>${item.email}</p>
+                        <p>${item.password}</p>
+                        <button onclick="deletUser(${index})">Delete</button>
+                        </div>
+                        `;
+                });
+            }
+
+            function deletUser(index){
+                let users=localStorage.getItem("user");
+                users=JSON.parse(users) || [];
+                // alert("deleted");
+                users.splice(index,1);
+                localStorage.setItem("user",JSON.stringify(users));  //ahh userine thirich stringilkk useril aakitt appm mathre splice wrkeyullu
+                displayUser();
+            }
+    
+
+            clrbtn.addEventListener("click",()=>{
+                localStorage.removeItem("user");
+                displayUser();
+            });
+            
+             savebtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                let arrUser=JSON.parse(localStorage.getItem('user'))  || [];
+                let users=
+                {
+                    name:name.value,
+                     email:mail.value,
+                    password:passwrd.value
+                };
+                arrUser.push(users);
+
+
+                // alert("save button clicked")
+                // console.log(users);
+                localStorage.setItem("user",JSON.stringify(arrUser));
+                name.value="",
+                mail.value="",
+                passwrd.value="";
+            displayUser()
+
+        });
+        displayUser()
+
+
+    
+        </script>
+
+    </form>
+    
+    
+</body>
+</html>
